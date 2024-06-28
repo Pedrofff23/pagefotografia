@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pedro Lucas</title>
+ 
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+
+  .card-img2 {
+    width: 250px;
+    /* Define a largura da imagem */
+    height: 200px;
+    /* Define a altura da imagem */
+    border-radius: 50%;
+    /* Faz a imagem ficar redonda */
+    display: block;
+    background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
+    filter: grayscale();
+    object-fit: cover;
+  }
+
+  @layer reset {
+
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+    }
+
+    :where(:not(dialog)) {
+      margin: 0;
+    }
+  }
+
+  @layer demo {
+    :root {
+      color-scheme: dark;
+      --nav-block-size: 74px;
+    }
+  }
+
+  @layer components.navbar {
+    .navbar {
+      background-color: black;
+      block-size: var(--nav-block-size);
+      display: grid;
+      gap: 1rem;
+      grid-auto-flow: column;
+      inset-block-start: 0;
+      justify-content: space-between;
+      padding-inline: 0.75rem;
+      place-items: center;
+      position: sticky;
+      z-index: 10;
+    }
+
+
+
+
+    .search-wrap {
+      display: grid;
+      grid-auto-flow: column;
+      place-items: center;
+      gap: 0.25rem;
+    }
+
+
+
+    .search-btn {
+      color: white;
+      inline-size: 1.5rem;
+      block-size: 1.5rem;
+      padding: 2px;
+      cursor: pointer;
+      background-color: inherit;
+      border: none;
+    }
+
+    .search-input {
+      border: none;
+      background-color: inherit;
+      border-block-end: 1px solid currentColor;
+      color: white;
+      padding-block: 0.25rem;
+      min-inline-size: 5ch;
+      inline-size: 100%;
+      font: 500 0.875rem/1.25rem system-ui, sans-serif;
+
+      &::placeholder {
+        color: white;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .cart {
+      display: grid;
+      grid-auto-flow: column;
+      place-items: center;
+      gap: 2px;
+    }
+
+    .cart-icon-wrapper {
+      padding: 2px;
+      inline-size: 1.5rem;
+      block-size: 1.5rem;
+    }
+
+    .nav-icon-svg {
+      block-size: auto;
+      display: block;
+      max-inline-size: 100%;
+    }
+  }
+
+  @layer components.collections {
+    .section {
+      background-color: black;
+      display: grid;
+      inline-size: 100%;
+      min-block-size: max(600px, calc(100dvb - var(--nav-block-size)));
+      padding-block-end: 0.75rem;
+      padding-inline: 0.75rem;
+      place-items: center;
+      position: relative;
+    }
+
+    .cards {
+      background-color: black;
+      block-size: 100%;
+      display: grid;
+      gap: 1rem;
+      inline-size: 100%;
+      @media (width > 1024px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      container-type: size;
+      inline-size: 100%;
+      block-size: 100%;
+      text-decoration: none;
+      min-block-size: 280px;
+      position: relative;
+      
+      &:hover::after {
+        opacity: 1;
+        
+
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        inset: 0;
+        mix-blend-mode: multiply;
+        opacity: 0;
+        position: absolute;
+        transition: opacity 0.2s ease;
+      }
+    }
+
+    .card-1::after {
+      background-color: hsl(343, 98%, 52%);
+    }
+
+    .card-2::after {
+      background-color: hsl(199, 100%, 38%);
+    }
+
+    .card-3::after {
+      background-color: hsl(119, 59%, 64%);
+    }
+
+    .card-4::after {
+      background-color: hsl(49, 83%, 69%);
+    }
+
+    .card-5::after {
+      background-color: hsl(288, 86%, 32%);
+    }
+
+    .visual {
+      background-color: black;
+      block-size: 100%;
+      display: grid;
+      inline-size: 100%;
+      overflow: hidden;
+      place-items: center;
+
+      >* {
+        grid-area: 1/1;
+      }
+    }
+
+    .card-img {
+      block-size: 100cqb;
+      inline-size: 100cqi;
+      border-radius: inherit;
+      display: block;
+      background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
+      filter: grayscale();
+      object-fit: cover;
+    }
+
+    .figcaption {
+      z-index: 2;
+      color: white;
+      font: 400 8cqi / normal system-ui, sans-serif;
+    }
+  }
+
+  .logo-img {
+    width: 40px;
+    /* Ajuste o tamanho da imagem conforme necessário */
+    height: 40px;
+    /* Mantendo a proporção quadrada para que o border-radius funcione corretamente */
+    border-radius: 50%;
+    /* Torna a imagem redonda */
+    margin-right: 10px;
+    /* Espaçamento entre a imagem e o texto */
+    object-fit: cover;
+    /* Garante que a imagem preencha completamente a área definida */
+
+  }
+
+  .nav-link {
+    display: flex;
+    /* Alinha a imagem e o texto horizontalmente */
+    align-items: center;
+    /* Alinha verticalmente a imagem e o texto */
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    /* Garante que o texto não quebre em uma nova linha */
+  }
+
+  .nav-link span {
+    margin-left: 10px;
+    /* Espaçamento entre a imagem e o texto */
+
+  }
+
+  .card-text {
+    display: none;
+    /* Inicialmente escondida */
+    background-color: #333;
+    /* Fundo escuro */
+    color: white;
+    /* Texto branco */
+    padding: 1rem;
+    /* Espaçamento interno */
+    margin-top: 1rem;
+    /* Espaçamento acima */
+
+    text-align: justify;
+    /* Justificar o texto nas laterais */
+    z-index: 2;
+    color: white;
+    font: 16px/ normal system-ui, sans-serif;
+  }
+
+  .card-1:hover+.card-text {
+    display: block;
+    /* Mostrar a caixa de texto */
+  }
+  .footer {
+  background-color: black;
+  color: #252525;
+  padding: 40px 20px;  /* Adicionei padding à esquerda e direita */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  border-top: 1px solid #252525;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 1;
+  padding: 20px;
+  text-align: left;  /* Alinhamento à esquerda para o conteúdo */
+}
+
+.footer-section h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.footer-section p,
+.footer-section a {
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.footer-section a:hover {
+  color: #fff;
+}
+
+.footer-section .social-icon {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.footer-bottom {
+  background-color: black;
+  color: #252525;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #252525;
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .footer-section {
+    padding: 10px 20px; /* Ajuste de padding para telas menores */
+  }
+}
+
+</style>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <nav class="navbar">
+    <img src="Photos\IMG-20240628-WA0059.jpg" alt="Logo" class="logo-img" />
+    <a  class="logo nav-link" style="font-size: 2rem">Pedro Lucas</a>
+  </nav>
+  <!-- Profile sobre mim -->
+
+  <section class="section">
+    <div class="cards">
+      <a href="#" class="card card-1">
+        <figure class="visual">
+          <img class="card-img" src="Photos\IMG-20240628-WA0059.jpg" />
+          <figcaption class="figcaption">Sobre mim</figcaption>
+        </figure>
+      </a>
+      <div class="card-text" id="card-1-text">
+        <p>Meu nome é Pedro Lucas, tenho 21 anos e sou apaixonado por comunicação visual e criatividade. Atualmente,
+          curso Design Gráfico, onde estou aprofundando meus conhecimentos sobre técnicas de criação, estética e
+          inovação no mundo digital.
+
+          Além dos estudos, trabalho como Social Media, onde aplico minhas habilidades para desenvolver estratégias de
+          comunicação eficientes, gerenciar redes sociais e criar conteúdos impactantes. Também sou fotógrafo,
+          utilizando a fotografia como uma ferramenta para capturar momentos únicos e transmitir mensagens visuais de
+          forma autêntica e criativa.
+
+          Minha combinação de habilidades em design, redes sociais e fotografia me permite ter uma abordagem completa e
+          versátil na comunicação visual, sempre buscando novas maneiras de expressar ideias e conectar pessoas.</p>
+      </div>
+      <a href="#slides00" class="card card-2">
+        <figure class="visual">
+          <img class="card-img" src="Photos\IMG-20240628-WA0074.jpg" alt="Person with curly hair in neon lighting" />
+          <figcaption class="figcaption">Fotos</figcaption>
+        </figure>
+      </a>
+      <a href="#" class="card card-3">
+        <figure class="visual">
+          <img class="card-img" src="Photos\IMG-20240628-WA0052.jpg"
+            alt="Person in vibrant neon lighting with abstract shapes" />
+          <figcaption class="figcaption">Portifólio</figcaption>
+        </figure>
+      </a>
+      <a href="#" class="card card-4">
+        <figure class="visual">
+          <img class="card-img" src="photos2\IMG-20240628-WA0043.jpg"
+            alt="Person wearing a virtual reality headset in a blue-lit room" />
+          <figcaption class="figcaption">Entre em contato</figcaption>
+        </figure>
+      </a>
+
+    </div>
+
+  </section>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+   
+
+    .slides {
+    padding: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .slides * {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  .slides input {
+    display: none;
+  }
+
+  .slide-container {
+    display: block;
+    box-shadow: #FFF;
+  }
+
+  .slide {
+    top: 0;
+    opacity: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    position: absolute;
+    transform: scale(0);
+    transition: all .7s ease-in-out;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+  
+  }
+
+  .nav label {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    display: none;
+    position: absolute;
+    opacity: 0.7;
+    z-index: 9;
+    cursor: pointer;
+    transition: opacity .2s;
+    color: #FFF;
+    font-size: 36px; /* Adjust as needed */
+    text-align: center;
+    line-height: 50px; /* Adjust as needed */
+    font-family: "Varela Round", sans-serif;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 0px 15px rgb(0, 0, 0);
+    border-radius: 50%; /* Makes it round */
+    margin-left: -100px;
+  }
+
+  .slide:hover + .nav label {
+    opacity: 0.5;
+  }
+
+  .nav label:hover {
+    opacity: 1;
+  }
+
+  .nav .prev {
+    left: 10px; /* Adjust position as needed */
+    top: 50%; /* Adjust position as needed */
+    transform: translateY(-50%);
+  }
+
+  .nav .next {
+    right: 10px; /* Adjust position as needed */
+    top: 50%; /* Adjust position as needed */
+    transform: translateY(-50%);
+    margin-right: -100px;
+    
+  }
+
+  input:checked + .slide-container .slide {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out;
+  }
+
+  input:checked + .slide-container .nav label {
+    display: block;
+  }
+
+  .nav-dots {
+    width: 100%;
+    bottom: 9px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    text-align: center;
+  }
+
+  .nav-dots .nav-dot {
+    top: -5px;
+    width: 11px;
+    height: 11px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 100%;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-dots .nav-dot:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  input#img-1:checked ~ .nav-dots label#img-dot-1,
+  input#img-2:checked ~ .nav-dots label#img-dot-2,
+  input#img-3:checked ~ .nav-dots label#img-dot-3,
+  input#img-4:checked ~ .nav-dots label#img-dot-4,
+  input#img-5:checked ~ .nav-dots label#img-dot-5,
+  input#img-6:checked ~ .nav-dots label#img-dot-6 {
+    background: rgba(0, 0, 0, 0.8);
+  }
+</style>
+  </style>
+  
+  <ul class="slides" id="slides00">
+    <input type="radio" name="radio-btn" id="img-1" checked />
+ 
+    <li class="slide-container">
+      <div class="slide">
+        <img src="Photos\IMG-20240628-WA0068.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-6" class="prev">&#x2039;</label>
+        <label for="img-2" class="next">&#x203a;</label>
+      </div>
+    </li>
+    
+
+    <input type="radio" name="radio-btn" id="img-2" />
+    <li class="slide-container">
+      <div class="slide">
+        <img src="photos2\IMG-20240628-WA0045.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-1" class="prev">&#x2039;</label>
+        <label for="img-3" class="next">&#x203a;</label>
+      </div>
+    </li>
+
+    <input type="radio" name="radio-btn" id="img-3" />
+    <li class="slide-container">
+      <div class="slide">
+        <img src="photos2\IMG-20240628-WA0051.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-2" class="prev">&#x2039;</label>
+        <label for="img-4" class="next">&#x203a;</label>
+      </div>
+    </li>
+
+    <input type="radio" name="radio-btn" id="img-4" />
+    <li class="slide-container">
+      <div class="slide">
+        <img src="photos2\IMG-20240628-WA0042.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-3" class="prev">&#x2039;</label>
+        <label for="img-5" class="next">&#x203a;</label>
+      </div>
+    </li>
+
+    <input type="radio" name="radio-btn" id="img-5" />
+    <li class="slide-container">
+      <div class="slide">
+        <img src="Photos\IMG-20240628-WA0072.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-4" class="prev">&#x2039;</label>
+        <label for="img-6" class="next">&#x203a;</label>
+      </div>
+    </li>
+
+    <input type="radio" name="radio-btn" id="img-6" />
+    <li class="slide-container">
+      <div class="slide">
+        <img src="Photos\IMG-20240628-WA0074.jpg" />
+      </div>
+      <div class="nav">
+        <label for="img-5" class="prev">&#x2039;</label>
+        <label for="img-1" class="next">&#x203a;</label>
+      </div>
+    </li>
+
+    <li class="nav-dots">
+      <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+      <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+      <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+      <label for="img-4" class="nav-dot" id="img-dot-4"></label>
+      <label for="img-5" class="nav-dot" id="img-dot-5"></label>
+      <label for="img-6" class="nav-dot" id="img-dot-6"></label>
+    </li>
+  </ul>
+  <style>
+ .ver-mais-btn {
+  display: block;
+  margin: 20px auto; /* Espaçamento ao redor do botão e centralização */
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 1rem;
+  background-color: #333; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Sem borda */
+  cursor: pointer;
+  border: 1px solid #ffffff; /* Adiciona uma borda */
+}
+
+.ver-mais-btn:hover {
+  background-color: #555; /* Cor de fundo ao passar o mouse */
+}
+  </style>
+ <button class="ver-mais-btn">Ver Mais</button>
+<div style="margin-top: 10px;"></div>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section about">
+      
+      <p>Pedro Lucas - fotógrafo</p>
+    </div>
+    <div class="footer-section contact">
+      <h3>Contato</h3>
+      <p><i class="fas fa-phone-alt"></i> +55 62 9976-1440</p>
+      <p><i class="fas fa-envelope"></i> pedrolucas@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> Goiânia, Goiás</p>
+    </div>
+    <div class="footer-section social">
+      <h3>Entre em contato</h3>
+      <a href="https://www.instagram.com/pdro_dantas/?utm_source=qr&igsh=MWZoc28zNmhvaTkwdQ%3D%3D" class="social-icon"><i class="fab fa-instagram"></i> pedrolucas</a><br>
+      <a href= "http://api.whatsapp.com/send?1=pt_BR&phone=5562999761440" class="social-icon"> <i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2024 Pedro Lucas Dantas. Todos os direitos reservados.
+  </div>
+</footer>
+<style>
+ .popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #333;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 80%; /* Define a largura máxima do pop-up */
+}
+
+.social-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 20px; /* Aumenta o espaçamento entre os links */
+  font-size: 20px; /* Aumenta o tamanho da fonte dos links */
+  text-align: left; /* Alinha o texto à direita */
+}
+
+.social-link:hover {
+  color: #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ccc;
+}
+
+</style>
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <a href="https://www.instagram.com/pdro_dantas/?utm_source=qr&igsh=MWZoc28zNmhvaTkwdQ%3D%3D" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5562999761440" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="mailto:pedrolucas@gmail.com" class="social-link"><i class="fas fa-envelope"></i> Email</a>
+    <button class="close-btn" id="close-btn"><i class="fas fa-times"></i></button>
+  </div>
+</div>
+    <!-- partial -->
+
+</body>
+<script>
+// Função para abrir o pop-up
+function openPopup(event) {
+  event.preventDefault();
+  var popup = document.getElementById('popup');
+  popup.style.display = 'block';
+}
+
+// Função para fechar o pop-up
+function closePopup(event) {
+  event.preventDefault();
+  var popup = document.getElementById('popup');
+  popup.style.display = 'none';
+}
+
+// Adiciona eventos de clique ao Card 4 e ao botão de fechar
+document.querySelector('.card-4').addEventListener('click', openPopup);
+document.getElementById('close-btn').addEventListener('click', closePopup);
+
+  // Função para alternar a visibilidade da caixa de texto
+  function toggleText(event) {
+    event.preventDefault(); // Previne o comportamento padrão do link
+    var textElement = document.getElementById('card-1-text');
+    if (textElement.style.display === 'none' || textElement.style.display === '') {
+      textElement.style.display = 'block';
+    } else {
+      textElement.style.display = 'none';
+    }
+  }
+
+  // Adiciona um evento de clique ao Card 1
+  document.querySelector('.card-1').addEventListener('click', toggleText);
+  document.querySelector('.card-5').addEventListener('click', toggleText);
+</script>
+
+</html>
